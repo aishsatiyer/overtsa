@@ -1,0 +1,19 @@
+alter table public.schema_migrations enable row level security;
+alter table public.users enable row level security;
+alter table public.sender_accounts enable row level security;
+alter table public.organizations enable row level security;
+alter table public.prospects enable row level security;
+alter table public.invite_templates enable row level security;
+alter table public.outreach_attempts enable row level security;
+alter table public.follow_up_events enable row level security;
+alter table public.replies enable row level security;
+
+revoke all on public.schema_migrations from anon, authenticated;
+revoke all on public.users from anon, authenticated;
+revoke all on public.sender_accounts from anon, authenticated;
+revoke all on public.organizations from anon, authenticated;
+revoke all on public.prospects from anon, authenticated;
+revoke all on public.invite_templates from anon, authenticated;
+revoke all on public.outreach_attempts from anon, authenticated;
+revoke all on public.follow_up_events from anon, authenticated;
+revoke all on public.replies from anon, authenticated;

@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+.next
+dist
+build
+.turbo
+.vercel
+.env.local
+.env.*.local
+coverage
+*.log
+architecture.md
+data-model.md
+product-spec.md

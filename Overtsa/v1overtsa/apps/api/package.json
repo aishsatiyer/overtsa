@@ -1,0 +1,27 @@
+{
+  "name": "@overtly/api",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "tsx watch ./src/index.ts",
+    "db:apply": "tsx ./src/scripts/apply-schema.ts",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/index.js",
+    "lint": "echo \"Add linting\"",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.0",
+    "@overtly/shared": "file:../../packages/shared",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.0.0",
+    "postgres": "^3.4.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

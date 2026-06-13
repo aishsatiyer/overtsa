@@ -1,0 +1,17 @@
+{
+  "name": "overtly-gtm-tool",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:dashboard": "npm run dev --workspace @overtly/dashboard",
+    "dev:api": "npm run dev --workspace @overtly/api",
+    "dev:extension": "npm run dev --workspace @overtly/chrome-extension",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "typecheck": "npm run typecheck --workspaces"
+  }
+}

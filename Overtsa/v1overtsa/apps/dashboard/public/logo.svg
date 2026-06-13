@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="overtly-gradient" x1="112" y1="88" x2="408" y2="430" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFD0B2" />
+      <stop offset="0.58" stop-color="#FF9C97" />
+      <stop offset="1" stop-color="#FFB9B1" />
+    </linearGradient>
+    <mask id="star-cutout">
+      <rect width="512" height="512" fill="white" />
+      <path d="M256 156L289 223L356 256L289 289L256 356L223 289L156 256L223 223Z" fill="black" />
+    </mask>
+  </defs>
+  <path
+    d="M256 52L386 126C404 136 415 155 415 176V336C415 357 404 376 386 386L256 460L126 386C108 376 97 357 97 336V176C97 155 108 136 126 126L256 52Z"
+    fill="url(#overtly-gradient)"
+    mask="url(#star-cutout)"
+  />
+</svg>

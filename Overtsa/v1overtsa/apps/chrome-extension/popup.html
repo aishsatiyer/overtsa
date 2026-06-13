@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overtly GTM Helper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="popup-header">
+        <div class="brand-lockup">
+          <img class="brand-mark" src="icons/128.png" alt="Overtly logo" width="36" height="36" />
+          <div>
+            <p class="eyebrow">Overtly GTM Helper</p>
+            <h1>Save prospect</h1>
+          </div>
+        </div>
+        <span id="page-status" class="status-badge">Checking page</span>
+      </header>
+
+      <section class="context-card">
+        <div class="context-row">
+          <span class="context-label">Page</span>
+          <strong id="context-page-type">Unknown</strong>
+        </div>
+        <div class="context-row">
+          <span class="context-label">Profile</span>
+          <span id="context-url" class="context-url">Open a LinkedIn profile</span>
+        </div>
+      </section>
+
+      <section class="mode-switch-card">
+        <div class="mode-switch" role="tablist" aria-label="Capture mode">
+          <button id="people-mode-btn" class="mode-button active" type="button" role="tab" aria-selected="true">
+            People
+          </button>
+          <button id="org-mode-btn" class="mode-button" type="button" role="tab" aria-selected="false">
+            Org
+          </button>
+        </div>
+      </section>
+
+      <section class="preview-card" data-mode-panel="people">
+        <div class="preview-header">
+          <strong>Detected profile</strong>
+          <span class="context-label">Debug view</span>
+        </div>
+        <div class="preview-body">
+          <div id="photo-preview" class="photo-preview empty"></div>
+          <div class="preview-fields">
+            <div><span>Name</span><strong id="preview-name">-</strong></div>
+            <div><span>Title</span><strong id="preview-title">-</strong></div>
+            <div><span>Organization</span><strong id="preview-org">-</strong></div>
+            <div><span>Location</span><strong id="preview-location">-</strong></div>
+          </div>
+        </div>
+        <div class="debug-lines">
+          <span>Nearby lines</span>
+          <pre id="preview-lines">-</pre>
+        </div>
+      </section>
+
+      <section class="context-card" data-mode-panel="people">
+        <div class="preview-header">
+          <strong>CRM match</strong>
+          <span class="context-label">Active lookup</span>
+        </div>
+        <div class="context-row">
+          <span class="context-label">Status</span>
+          <strong id="existing-prospect-status">Checking CRM...</strong>
+        </div>
+        <div class="context-row">
+          <span class="context-label">Record</span>
+          <a
+            id="existing-prospect-link"
+            class="context-url"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open in CRM
+          </a>
+        </div>
+      </section>
+
+      <section class="context-card" data-mode-panel="people">
+        <div class="preview-header">
+          <strong>Invite context</strong>
+          <span class="context-label">A/B aware</span>
+        </div>
+
+        <div class="context-row">
+          <span class="context-label">Current sender</span>
+          <strong id="current-sender-name">Not set</strong>
+        </div>
+
+        <div class="popup-form compact-form">
+          <label>
+            <span>Sender account</span>
+            <select id="senderAccountId" name="senderAccountId">
+              <option value="">Loading sender accounts...</option>
+            </select>
+            <span class="context-label">Remembered on this browser profile.</span>
+          </label>
+
+          <label>
+            <span>Invite version</span>
+            <select id="inviteTemplateId" name="inviteTemplateId">
+              <option value="">Loading invite templates...</option>
+            </select>
+          </label>
+
+          <label class="notes-field">
+            <span>Invite note preview</span>
+            <textarea id="inviteNoteText" name="inviteNoteText" rows="4"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="context-card" data-mode-panel="people">
+        <div class="preview-header">
+          <strong>Invite action</strong>
+          <span class="context-label">Manual send</span>
+        </div>
+        <div class="context-row">
+          <span class="context-label">Current state</span>
+          <strong id="invite-action-state">Save prospect first</strong>
+        </div>
+        <div class="actions">
+          <button id="log-invite-btn" class="secondary-button" type="button" disabled>Log invite</button>
+        </div>
+      </section>
+
+      <form id="prospect-form" class="popup-form" data-mode-panel="people">
+        <label>
+          <span>Full name</span>
+          <input id="fullName" name="fullName" type="text" required />
+        </label>
+
+        <label>
+          <span>LinkedIn URL</span>
+          <input id="linkedinProfileUrl" name="linkedinProfileUrl" type="url" required />
+        </label>
+
+        <label>
+          <span>Organization</span>
+          <input id="organizationName" name="organizationName" type="text" required />
+        </label>
+
+        <label>
+          <span>Organization type</span>
+          <select id="organizationType" name="organizationType">
+            <option value="other">Other</option>
+            <option value="agency">Agency</option>
+            <option value="in_house">In-house</option>
+            <option value="brand">Brand</option>
+            <option value="startup">Startup</option>
+            <option value="consultancy">Consultancy</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Title</span>
+          <input id="title" name="title" type="text" required />
+        </label>
+
+        <label>
+          <span>Segment</span>
+          <select id="segment" name="segment">
+            <option value="">No segment</option>
+            <option value="agency">Agency</option>
+            <option value="in_house">In-house</option>
+            <option value="founder">Founder</option>
+            <option value="consultant">Consultant</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+
+        <div class="library-card">
+          <div class="library-card-head">
+            <span>Location library</span>
+            <small>Quick-pick labels that match the dashboard map and heatmap groupings.</small>
+          </div>
+          <select id="people-location-library" class="location-dropdown">
+            <option value="">Choose a location</option>
+          </select>
+          <div class="location-summary">
+            <div><span>Location</span><strong id="people-location-summary">-</strong></div>
+            <div><span>Region</span><strong id="people-region-summary">-</strong></div>
+          </div>
+        </div>
+
+        <input id="locationText" name="locationText" type="hidden" />
+        <input id="region" name="region" type="hidden" />
+
+        <label class="notes-field">
+          <span>Notes</span>
+          <textarea id="notes" name="notes" rows="4"></textarea>
+        </label>
+
+        <div class="actions">
+          <button id="refresh-btn" class="secondary-button" type="button">Refresh from page</button>
+          <button id="save-btn" class="primary-button" type="submit">Save prospect</button>
+        </div>
+      </form>
+
+      <section class="preview-card hidden-panel" data-mode-panel="org">
+        <div class="preview-header">
+          <strong>Detected organization</strong>
+          <span class="context-label">Visible page context</span>
+        </div>
+        <div class="preview-body">
+          <div id="org-photo-preview" class="photo-preview empty logo-fallback"></div>
+          <div class="preview-fields">
+            <div><span>Organization</span><strong id="org-preview-name">-</strong></div>
+            <div><span>Employees</span><strong id="org-preview-title">-</strong></div>
+            <div><span>Website</span><strong id="org-preview-website">-</strong></div>
+            <div><span>Location</span><strong id="org-preview-location">-</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <form id="organization-form" class="popup-form hidden-panel" data-mode-panel="org">
+        <label>
+          <span>Organization name</span>
+          <input id="orgName" name="orgName" type="text" required />
+        </label>
+
+        <label>
+          <span>Organization type</span>
+          <select id="orgType" name="orgType">
+            <option value="other">Other</option>
+            <option value="agency">Agency</option>
+            <option value="in_house">In-house</option>
+            <option value="brand">Brand</option>
+            <option value="startup">Startup</option>
+            <option value="consultancy">Consultancy</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Website / domain</span>
+          <input id="orgDomain" name="orgDomain" type="text" />
+        </label>
+
+        <label>
+          <span>Logo URL</span>
+          <input id="orgLogoUrl" name="orgLogoUrl" type="url" placeholder="Captured from LinkedIn company page" />
+        </label>
+
+        <label>
+          <span>Employees</span>
+          <input id="orgEmployeeCountText" name="orgEmployeeCountText" type="text" placeholder="51-200 employees" />
+        </label>
+
+        <label>
+          <span>LinkedIn company URL</span>
+          <input id="orgLinkedinCompanyUrl" name="orgLinkedinCompanyUrl" type="url" />
+        </label>
+
+        <div class="library-card">
+          <div class="library-card-head">
+            <span>Location library</span>
+            <small>Quick-pick labels that match the dashboard map and heatmap groupings.</small>
+          </div>
+          <select id="org-location-library" class="location-dropdown">
+            <option value="">Choose a location</option>
+          </select>
+          <div class="location-summary">
+            <div><span>Location</span><strong id="org-location-summary">-</strong></div>
+            <div><span>Region</span><strong id="org-region-summary">-</strong></div>
+          </div>
+        </div>
+
+        <input id="orgLocationText" name="orgLocationText" type="hidden" />
+        <input id="orgRegion" name="orgRegion" type="hidden" />
+
+        <label class="notes-field">
+          <span>Notes</span>
+          <textarea id="orgNotes" name="orgNotes" rows="4"></textarea>
+        </label>
+
+        <div class="actions">
+          <button id="org-refresh-btn" class="secondary-button" type="button">Refresh from page</button>
+          <button id="save-org-btn" class="primary-button" type="submit">Save org</button>
+        </div>
+      </form>
+
+      <p id="feedback" class="feedback muted">Open a LinkedIn profile to autofill this form.</p>
+    </main>
+
+    <script src="src/popup.js" type="module"></script>
+  </body>
+  </html>
